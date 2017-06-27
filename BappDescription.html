@@ -1,23 +1,13 @@
-<p>This extension is made up of three different components:</p>
+<p>This extension gives Burp Suite the ability to find Java deserialization vulnerabilities.</p>
 
-<ul>
-    <li>Integration with Burp Suite active and passive scanner</li>
-    <li>Manual tester, for the detection of Java deserialization vulnerabilities on custom insertion points</li>
-    <li>Exploiter, that allow to actively exploit Java deserialization vulnerabilies, using frohoff ysoserial (https://github.com/frohoff/ysoserial)</li>
-</ul>
+<p>It adds checks to both the active and passive scanner and can also be used in an "Intruder like" manual mode, with a dedicated tab.</p>
 
-<b>Integration with Burp Suite active and passive scanner</b>
+<p>The extension allows the user to <i>discover and exploit</i> Java Deserialization Vulnerabilities with different encodings (Raw, Base64, Ascii Hex, GZIP, Base64 GZIP) when the following libraries are loaded in the target JVM:</p>
 
-<p>Java Deserialization Scanner uses custom payloads generated with a modified version of "ysoserial", tool created by frohoff and gebl, to detect Java deserialization vulnerabilities. The original tool (<a href="https://github.com/frohoff/ysoserial">https://github.com/frohoff/ysoserial</a>) generate payloads for the execution of commands on the system, using the Runtime.exec function. Usually, however, it is not possible to see the output of the command and consequently it is not simple to write a scanner based on this kind of function. For this reason, a modified version of ysoserial is used to generate different types of payloads, usefull for the detection of the issue instead of the exploitation:</p>
-<ul>
-<li>Payloads that execute a syncronous sleep function, in order to verify the presence of the issue depending on the time of the response</li>
-<li>Payloads that execute a DNS resolution, in order to verify the presence of the issue using the Burp Suite Collaborator integrated in Burp Suite</li>
-</ul>
-<p>Currently, the passive checks of the Java Deserialiation Scanner reported the presence of serialized Java objects in the HTTP requests and the active checks actively scan for the presence of weak deserialization functions in conjuction with the presence of the following weak libraries:</p>
 <ul>
 <li>Apache Commons Collections 3 (up to 3.2.1), with four different chains</li>
 <li>Apache Commons Collections 4 (up to 4.4.0), with two different chains</li>
-<li>Spring (up to 4.2.2), with two different chains</li>
+<li>Spring (up to 4.2.2)</li>
 <li>Java 6 and Java 7 (up to Jdk7u21) without any weak library</li>
 <li>Hibernate 5</li>
 <li>JSON</li>
@@ -25,24 +15,12 @@
 <li>Java 8 (up to Jdk8u20) without any weak library</li>
 <li>Apache Commons BeanUtils</li>
 </ul>
-<p>All the components of the plugin supports the following encodings:</p>
-<ul>
-<li>Raw</li>
-<li>Base64</li>
-<li>Ascii Hex</li>
-<li>GZIP</li>
-<li>Base64 GZIP</li>
-</ul>
 
+<p>New CPU mode is able to detect deserialization issues also <i>without the presence of any vulnerable library</i>, thanks to the work of Wouter Coekaerts <a href="https://gist.github.com/coekie/a27cc406fc9f3dc7a70d">https://gist.github.com/coekie/a27cc406fc9f3dc7a70d</a></p> 
 
-<p><b>Manual tester</b></p>
+<p>After that a Java deserialization vulnerability has been found, a dedicated exploitation tab offers a comfortable interface to exploit deserialization vulnerabilities using frohoff ysoserial <a href="https://github.com/frohoff/ysoserial">https://github.com/frohoff/ysoserial</a></p>
 
-<p>The plugin offer a dedicated tab to launch the detection with the sleep and DNS payloads on custom insertion points, in order to check the Java deserialization vulnerabilities in particular situations in which strange entry points do not allow the detection with the scanner. The results of the manual tester can be inserted between Burp Suite scanner results.</p>
+<p>Mini walkthrough: <a href="https://techblog.mediaservice.net/2017/05/reliable-discovery-and-exploitation-of-java-deserialization-vulnerabilities/">https://techblog.mediaservice.net/2017/05/reliable-discovery-and-exploitation-of-java-deserialization-vulnerabilities/</a></p>
 
-<p>The manual tester offers an extra detection method: CPU detection. The CPU detection method is based on Wouter Coekaerts’ SerialDOS work (<a href="https://gist.github.com/coekie/a27cc406fc9f3dc7a70d">https://gist.github.com/coekie/a27cc406fc9f3dc7a70d</a>) and it is able to detect deserialization issues without the presence of any vulnerable library, using an object that employs many CPU cycles for the deserialization task and checking the time of the response. The CPU detection method is not included by default in the active scan checks, because it must be used with caution: sending a huge number of “light” SerialDOS payloads may still cause problems on old or highly-loaded systems.</p>
-
-
-<p><b>Exploiter</b></p>
-
-<p>After that a Java deserialization vulnerability has been found, it is possible to actively exploit the issue with the Exploiting dedicated tab. The “Exploiting” tab offers a comfortable interface to exploit deserialization vulnerabilities. This tab uses the ysoserial tool to generate exploitation vectors and includes the generated payload in a HTTP request. ysoserial takes as argument a vulnerable library and a command and generates a serialized object in binary form that can be sent to the vulnerable application to execute the command on the target system (obviously if the target application is vulnerable). The Exploiting tab supports the same encoding formats as the detection sections of the plugin.</p>
+<p>GitHub project page: <a href="https://github.com/federicodotta/Java-Deserialization-Scanner">https://github.com/federicodotta/Java-Deserialization-Scanner</a></p>
 
