@@ -2,11 +2,11 @@ Uuid: 228336544ebe4e68824b5146dbbd93ae
 ExtensionType: 1
 Name: Java Deserialization Scanner
 RepoName: java-deserialization-scanner
-ScreenVersion: 0.5
-SerialVersion: 4
+ScreenVersion: 0.6
+SerialVersion: 8
 MinPlatformVersion: 0
 ProOnly: True
 Author: Federico Dotta
 ShortDescription: Performs active and passive scans to detect Java deserialization vulnerabilities.
-EntryPoint: output/JavaDeserializationScanner_dev.jar
-BuildCommand: ant
+EntryPoint: target/JavaDeserializationScanner-0.6-jar-with-dependencies.jar
+BuildCommand: mvn package
