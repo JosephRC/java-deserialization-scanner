@@ -3,11 +3,11 @@ ExtensionType: 1
 Name: Java Deserialization Scanner
 RepoName: java-deserialization-scanner
 ScreenVersion: 0.7
-SerialVersion: 14
+SerialVersion: 15
 MinPlatformVersion: 0
-ProOnly: True
+ProOnly: False
 Author: Federico Dotta
 ShortDescription: Performs active and passive scans to detect Java deserialization vulnerabilities.
 EntryPoint: target/JavaDeserializationScanner-0.7-jar-with-dependencies.jar
 BuildCommand: mvn package
-SupportedProducts: Pro
+SupportedProducts: Pro, Community
