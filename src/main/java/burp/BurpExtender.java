@@ -551,6 +551,7 @@ public class BurpExtender implements IBurpExtender, IScannerCheck, ITab, ActionL
                 // RIGHT
                 
                 resultAreaManualTesting = new JEditorPane("text/html", "<b>RESULTS PANE</b>");
+                resultAreaManualTesting.putClientProperty("html.disable", null);
                 resultAreaManualTesting.setEditable(false);
                 JScrollPane scrollResultAreaManualTesting = new JScrollPane(resultAreaManualTesting);
                 scrollResultAreaManualTesting.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
